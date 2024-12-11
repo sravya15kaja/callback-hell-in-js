@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         function placeorder(callback){
+            setTimeout(() => {
+                console.log("Your pizza order is placed");
+                callback()
+            }, 1000);
+         }
+         function prepare(callback){
+            setTimeout(() => {
+                console.log("Your order is preparing");
+                callback()
+            }, 2000);
+         }
+         function baking(callback){
+            setTimeout(() => {
+                console.log("Backing the pizza");
+                callback()
+            }, 4000);
+         }
+         function packing(callback){
+            setTimeout(() => {
+                console.log("Your order is been packing");
+                callback()
+            }, 5000);
+         }
+         function deliver(){
+            setTimeout(() => {
+                console.log("Your order is deliverd");
+            }, 5000);
+         }
+         placeorder(()=>{
+            prepare(()=>{
+            baking(()=>{
+                packing(()=>{
+                    deliver()
+                })
+            })
+
+         })
+         })
+
+    </script>
+    
+</body>
+</html>
