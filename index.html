@@ -1,53 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #log {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 150px;
+            overflow-y: auto;
+            font-size: 16px;
+            color: #333;
+            white-space: pre-wrap; /* To preserve newlines */
+        }
+
+        .log-message {
+            margin: 10px 0;
+            padding: 5px;
+            font-family: monospace;
+            font-size: 14px;
+            color: #555;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .log-message.success {
+            background-color: #c8e6c9; /* Light green for success */
+        }
+
+        .log-message.error {
+            background-color: #ffccbc; /* Light red for error */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
+
 <body>
+    <div class="container">
+        <h1>Pizza Order Process</h1>
+        <div id="log"></div>
+        <button class="button" onclick="startOrder()">Start Order</button>
+    </div>
+
     <script>
-         function placeorder(callback){
+        function logMessage(message, type = 'normal') {
+            const logContainer = document.getElementById("log");
+            const logMessage = document.createElement("div");
+            logMessage.classList.add('log-message');
+            if (type === 'success') {
+                logMessage.classList.add('success');
+            } else if (type === 'error') {
+                logMessage.classList.add('error');
+            }
+            logMessage.textContent = message;
+            logContainer.appendChild(logMessage);
+            logContainer.scrollTop = logContainer.scrollHeight; // Auto scroll to the bottom
+        }
+
+        function placeorder(callback){
             setTimeout(() => {
-                console.log("Your pizza order is placed");
-                callback()
+                logMessage("Your pizza order is placed", 'success');
+                callback();
             }, 1000);
-         }
-         function prepare(callback){
+        }
+        function prepare(callback){
             setTimeout(() => {
-                console.log("Your order is preparing");
-                callback()
+                logMessage("Your order is preparing", 'success');
+                callback();
             }, 2000);
-         }
-         function baking(callback){
+        }
+        function baking(callback){
             setTimeout(() => {
-                console.log("Backing the pizza");
-                callback()
+                logMessage("Baking the pizza", 'success');
+                callback();
             }, 4000);
-         }
-         function packing(callback){
+        }
+        function packing(callback){
             setTimeout(() => {
-                console.log("Your order is been packing");
-                callback()
+                logMessage("Your order is being packed", 'success');
+                callback();
             }, 5000);
-         }
-         function deliver(){
+        }
+        function deliver(){
             setTimeout(() => {
-                console.log("Your order is deliverd");
+                logMessage("Your order is delivered", 'success');
             }, 5000);
-         }
-         placeorder(()=>{
-            prepare(()=>{
-            baking(()=>{
-                packing(()=>{
-                    deliver()
-                })
-            })
+        }
 
-         })
-         })
-
+        function startOrder() {
+            placeorder(() => {
+                prepare(() => {
+                    baking(() => {
+                        packing(() => {
+                            deliver();
+                        });
+                    });
+                });
+            });
+        }
     </script>
-    
 </body>
-</html>
